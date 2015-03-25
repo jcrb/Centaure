@@ -1,0 +1,38 @@
+---
+title: "Activité Hélicoptère"
+author: "jcb"
+date: "25 mars 2015"
+output: html_document
+---
+
+```{r}
+path <- "../"
+file <- paste0(path, "data/activite_helico_2014.csv")
+he <- read.csv(file)
+```
+
+Les lignes commençant par le même n° de dossier sont identiques sauf en ce qui concerne la rubrique __libelle__. Si on ne tient pas compte de ce champ, on peut créer un fichier h2 qui éliine tous les doublons:
+
+```{r}
+h2 <- he[!duplicated(he$dossier),]
+```
+
+Analyse univariée
+-----------------
+
+```{r}
+n.missions <- nrow(h2)
+n.missions.jour <- n.missions/365
+
+table(h2$Mission)
+prop.table(table(h2$Mission))
+table(h2$Sexe)
+table(h2$Devenir)
+table(h2$Devenir, h2$Mission)
+
+table(h2$Commune_destination)
+table(h2$Commune_destination, h2$Mission)
+
+```
+
+
