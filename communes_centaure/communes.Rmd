@@ -15,8 +15,8 @@ Fichier text (sep = "\t") à 2 colonnes:
 Fichier utilitaire permettant de faire du merging avec d'autres fichiers centaure ayant un nom de commune mais pas le code INSEE.
 
 ```{r}
-path <- ""
-file <- paste0(path, "Communes_code_INSEE.csv")
+path <- "../"
+file <- paste0(path, "data/Communes_code_INSEE.csv")
 co <- read.csv(file)
 library(stringr)
 co$Commune <- str_trim(co$Commune)

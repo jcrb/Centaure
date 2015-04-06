@@ -1,13 +1,4 @@
----
-title: "Activité Hélicoptère"
-author: "jcb"
-date: "25 mars 2015"
-output: html_document
----
-
-Faire une routine pour ce qui suit:
-
-```{r}
+## ------------------------------------------------------------------------
 
 nom.col<- c("dossier","Libelle","Date","Age_en_clair","Age_en_annees","Age_en_jours","Nombre","Mission","Moyen","Commune","Etablissement_intervention","Sexe","Devenir","Moyen_evac","Commune_destination","Etablissement_destination","Service_destination")
 
@@ -25,30 +16,12 @@ colnames(he) <- nom.col
 h2 <- he[!duplicated(he$dossier),]
 H2012 <- h2
 
-```
-Les fichiers sont produits par BO au format TXT (séparateurs = tabulation). Les fichiers source sont ouvert sans Libre Office pour être réenregistrés au format CSV, après les modifications suivantes:
 
-- suppression de la première ligne
-- suppression des caractères accentués
-- suppression des blancs
-- redéfinition du nom des colonnes
-
-Les lignes commençant par le même n° de dossier sont identiques sauf en ce qui concerne la rubrique __libelle__. Si on ne tient pas compte de ce champ, on peut créer un fichier h2 qui éliine tous les doublons:
-
-```{}
-h2 <- he[!duplicated(he$dossier),]
-```
-
-Fusion des fichiers
--------------------
-```{r}
+## ------------------------------------------------------------------------
 h2 <- rbind(H2012, H2013)
 
-```
 
-Création d'une colonne jour
----------------------------
-```{r}
+## ------------------------------------------------------------------------
 h2$Jour <- as.Date(substr(h2$Date, 1, 10), "%d/%m/%Y")
 h2$heure <- substr(h2$Date, 12, 17) # heures/minutes
 
@@ -58,13 +31,8 @@ barplot(table(h2$Mission, as.factor(h2$he))) # primaireset secondaires séparée
 barplot(table(h2$Mission, as.factor(h2$he)), beside = TRUE)
 
 
-```
 
-
-Analyse univariée
------------------
-
-```{r}
+## ------------------------------------------------------------------------
 n.missions <- nrow(h2)
 n.missions.jour <- n.missions/365
 
@@ -78,22 +46,14 @@ table(h2$Devenir, h2$Mission)
 table(h2$Commune_destination)
 table(h2$Commune_destination, h2$Mission)
 
-```
 
-Age
-===
-
-```{r}
+## ------------------------------------------------------------------------
 summary(h2$Age_en_annees)
 hist(h2$Age_en_annees)
 boxplot(h2$Age_en_annees ~ h2$Sexe)
 
-```
 
-Communes d'intetervention
-=========================
-```{r}
+## ------------------------------------------------------------------------
 table(h2$Commune[h2$Mission == "Primaire"])
 
-```
 
